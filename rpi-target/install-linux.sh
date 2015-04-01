@@ -115,12 +115,12 @@ rename ()
 source_base_dir=${SRC_DIR}
 if [[ -z "${source_base_dir}" ]]
 then
-	source_base_dir=`pwd`
+  source_base_dir=`pwd`
 fi
 
 if [[ -z "$1" ]]
 then
-	echo -e "${TxtErr}Source sub-directory not given."
+  echo -e "${TxtErr}Source sub-directory not given."
   echo -e
   echo -e "Usage:"
   echo -e "   install-linux src-sub-dir"
@@ -130,7 +130,7 @@ then
   echo -e "               which the kernel, module and firmware files"
   echo -e "               to be installed are located."
   echo -e ${TxtNorm}
-	exit 11
+  exit 11
 fi
 
 source_dir=''
@@ -138,9 +138,9 @@ path_append source_dir "${source_base_dir}" "$1"
 
 if [[ ! -d ${source_dir} ]]
 then
-	echo -e "${TxtErr}File installation directory ${source_dir} does not exist."
+  echo -e "${TxtErr}File installation directory ${source_dir} does not exist."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 
 boot_dir=''
@@ -156,9 +156,9 @@ path_append opt_dir "${source_dir}" "opt"
 # exist:
 if [[ ! -d ${boot_dir} ]]
 then
-	echo -e "${TxtErr}${source_dir} does not have a boot subdirectory."
+  echo -e "${TxtErr}${source_dir} does not have a boot subdirectory."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if  [[ ! -d ${lib_dir} ]]
 then
@@ -168,28 +168,28 @@ then
 fi
 if [[ ! -d ${opt_dir} ]]
 then
-	echo -e "${TxtErr}${source_dir} does not have an opt subdirectory."
+  echo -e "${TxtErr}${source_dir} does not have an opt subdirectory."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 
 if [[ ! -f ${boot_dir}/bootcode.bin ]]
 then
-	echo -e "${TxtErr}${boot_dir}/bootcode.bin is missing."
+  echo -e "${TxtErr}${boot_dir}/bootcode.bin is missing."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if [[ ! -f ${boot_dir}/fixup.dat ]]
 then
-	echo -e "${TxtErr}${boot_dir}/fixup.dat is missing."
+  echo -e "${TxtErr}${boot_dir}/fixup.dat is missing."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if [[ ! -f ${boot_dir}/start.elf ]]
 then
-	echo -e "${TxtErr}${boot_dir}/start.elf is missing."
+  echo -e "${TxtErr}${boot_dir}/start.elf is missing."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if  [[ ! -x ${boot_dir}/zImage ]]
 then
@@ -211,9 +211,9 @@ then
 fi
 if [[ ! -d ${opt_dir}/vc ]]
 then
-	echo -e "${TxtErr}${opt_dir}/vc (Raspberry Pi VideoCore files) directory is missing."
+  echo -e "${TxtErr}${opt_dir}/vc (Raspberry Pi VideoCore files) directory is missing."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 
 # backup existing boot files: 

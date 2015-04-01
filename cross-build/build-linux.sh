@@ -58,17 +58,17 @@ TxtApp=${Yel}
 # Check required exported environment variables are set:
 if [[ -z "${KERNEL_SRC}" ]]
 then
-	echo -e "${TxtErr}KERNEL_SRC not set."
+  echo -e "${TxtErr}KERNEL_SRC not set."
   echo -e "Expected KERNEL_SRC to be set to path to Linux kernel source."
   echo -e ${TxtNorm}
-	exit 11
+  exit 11
 fi
 if [[ -z "${KERNEL_BUILD}" ]]
 then
-	echo -e "${TxtErr}KERNEL_BUILD not set."
+  echo -e "${TxtErr}KERNEL_BUILD not set."
   echo -e "Expected KERNEL_BUILD to be set to a valid path for build output."
   echo -e ${TxtNorm}
-	exit 11
+  exit 11
 fi
 if [[ -z "${CCPREFIX}" ]]
 then
@@ -81,21 +81,21 @@ fi
 # Check required exported environment variables have sane looking values:
 if [[ ! -d ${KERNEL_SRC}/kernel ]]
 then
-	echo -e "${TxtErr}${KERNEL_SRC} does not seem to contain Linux kernel source."
+  echo -e "${TxtErr}${KERNEL_SRC} does not seem to contain Linux kernel source."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if [[ ! -d ${KERNEL_BUILD} ]]
 then
-	echo -e "${TxtErr}${KERNEL_BUILD} does not seem to exist as a directory."
+  echo -e "${TxtErr}${KERNEL_BUILD} does not seem to exist as a directory."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if !(${CCPREFIX}gcc --version > /dev/null)
 then
-	echo -e "${TxtErr}Unable to execute ${CCPREFIX}gcc."
+  echo -e "${TxtErr}Unable to execute ${CCPREFIX}gcc."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 
 # Change to source directory, determine kernel version that will be build,  
@@ -108,12 +108,12 @@ build_dir=${build_dir_base}/kernel
 modules_dir=${build_dir_base}/modules
 if [[ ! -d ${build_dir_base} ]]
 then
-	if !(mkdir ${build_dir_base})
-	then
-		echo -e "${TxtErr}Failed to create build output directory ${build_dir_base}."
+  if !(mkdir ${build_dir_base})
+  then
+    echo -e "${TxtErr}Failed to create build output directory ${build_dir_base}."
     echo -e ${TxtNorm}
-		exit 13
-	fi
+    exit 13
+  fi
   if  [[ ! -d ${build_dir} ]]
   then
     if !(mkdir ${build_dir})
@@ -150,7 +150,7 @@ echo -e "${TxtInfo}Cleaning build directory..."
 echo -e ${TxtNorm}
 if !(make ${output_opt} mrproper)
 then
-	echo -e "${TxtErr}Failed cleaning build directory with make ... mrproper"
+  echo -e "${TxtErr}Failed cleaning build directory with make ... mrproper"
   echo -e ${TxtNorm}
   exit 14
 fi
@@ -164,9 +164,9 @@ echo -e "into ${build_dir}/.config ..."
 echo -e ${TxtNorm}
 if !(zcat config.gz > ${build_dir}/.config)
 then
-	echo -e "${TxtErr}Failed using zcat to expand ${KERNEL_SRC}/config.gz to ${build_dir}/.config"
+  echo -e "${TxtErr}Failed using zcat to expand ${KERNEL_SRC}/config.gz to ${build_dir}/.config"
   echo -e ${TxtNorm}
-	exit 14
+  exit 14
 fi
 
 # 3/ Set configuration to use existing (just created) .config:
@@ -176,7 +176,7 @@ echo -e "You may be queried about new configuration options..."
 echo -e ${TxtNorm}
 if !(make ${common_opts} oldconfig)
 then
-	echo -e "${TxtErr}Failed setting build configuration  make ...  oldconfig"
+  echo -e "${TxtErr}Failed setting build configuration  make ...  oldconfig"
   echo -e ${TxtNorm}
   exit 14
 fi
@@ -187,7 +187,7 @@ echo -e "${TxtInfo}Building kernel..."
 echo -e ${TxtNorm}
 if !(make ${common_opts} -j5)
 then
-	echo -e "${TxtErr}Failed building kernel make ..."
+  echo -e "${TxtErr}Failed building kernel make ..."
   echo -e ${TxtNorm}
   exit 14
 fi
@@ -198,7 +198,7 @@ echo -e "${TxtInfo}Building modules..."
 echo -e ${TxtNorm}
 if !(make ${common_opts} modules)
 then
-	echo -e "${TxtErr}Failed building make ... modules"
+  echo -e "${TxtErr}Failed building make ... modules"
   echo -e ${TxtNorm}
   exit 14
 fi
@@ -209,7 +209,7 @@ echo -e "${TxtInfo}Installing modules to ${modules_dir}..."
 echo -e ${TxtNorm}
 if !(make ${common_opts} INSTALL_MOD_PATH=${modules_dir} modules_install)
 then
-	echo -e "${TxtErr}Failed building make ... modules_install"
+  echo -e "${TxtErr}Failed building make ... modules_install"
   echo -e ${TxtNorm}
   exit 14
 fi

@@ -60,96 +60,96 @@ TxtApp=${Yel}
 # Check required exported environment variables are set:
 if [[ -z "${KERNEL_SRC}" ]]
 then
-	echo -e "${TxtErr}KERNEL_SRC not set."
+  echo -e "${TxtErr}KERNEL_SRC not set."
   echo -e "Expected KERNEL_SRC to be set to path to Linux kernel source."
   echo -e ${TxtNorm}
-	exit 11
+  exit 11
 fi
 if [[ -z "${KERNEL_BUILD}" ]]
 then
-	echo -e "${TxtErr}KERNEL_BUILD not set."
+  echo -e "${TxtErr}KERNEL_BUILD not set."
   echo -e "Expected KERNEL_BUILD to be set to a valid path for kernel build output."
   echo -e ${TxtNorm}
-	exit 11
+  exit 11
 fi
 if [[ -z "${FIRMWARE_DIR}" ]]
 then
-	echo -e "${TxtErr}FIRMWARE_DIR not set."
+  echo -e "${TxtErr}FIRMWARE_DIR not set."
   echo -e "Expected FIRMWARE_DIR to be set to a valid path for Raspberry Pi firmware files."
   echo -e ${TxtNorm}
-	exit 11
+  exit 11
 fi
 if [[ -z "${STAGING_DIR}" ]]
 then
-	echo -e "${TxtErr}STAGING_DIR not set."
+  echo -e "${TxtErr}STAGING_DIR not set."
   echo -e "Expected STAGING_DIR to be set to a valid path."
   echo -e ${TxtNorm}
-	exit 11
+  exit 11
 fi
 if [[ -z "${TGT_RPI}" ]]
 then
-	echo -e "${TxtErr}TGT_RPI not set."
+  echo -e "${TxtErr}TGT_RPI not set."
   echo -e "Expected TGT_RPI to be set to host name or IP address of Raspberry Pi to transfer files to."
   echo -e ${TxtNorm}
-	exit 11
+  exit 11
 fi
 if [[ -z "${TGT_USER}" ]]
 then
-	echo -e "${TxtErr}TGT_USER not set."
+  echo -e "${TxtErr}TGT_USER not set."
   echo -e "Expected TGT_USER to be set to user name on target Raspberry Pi to use for transfer."
   echo -e ${TxtNorm}
-	exit 11
+  exit 11
 fi
 if [[ -z "${TGT_DIR}" ]]
 then
-	echo -e "${TxtErr}TGT_DIR not set."
+  echo -e "${TxtErr}TGT_DIR not set."
   echo -e "Expected TGT_DIR to be set to absolute directory on target Raspberry Pi to transfer files to."
   echo -e ${TxtNorm}
-	exit 11
+  exit 11
 fi
 
 # Check required exported environment variables have sane looking values:
 if [[ ! -d ${KERNEL_SRC}/kernel ]]
 then
-	echo -e "${TxtErr}${KERNEL_SRC} does not seem to contain Linux kernel source."
+  echo -e "${TxtErr}${KERNEL_SRC} does not seem to contain Linux kernel source."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if [[ ! -d ${STAGING_DIR} ]]
 then
-	echo -e "${TxtErr}${STAGING_DIR} does not exist."
+  echo -e "${TxtErr}${STAGING_DIR} does not exist."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if [[ ! -d ${FIRMWARE_DIR}boot ]]
 then
-	echo -e "${TxtErr}${FIRMWARE_DIR} does not seem to contain Raspberry Pi firmware files."
+  echo -e "${TxtErr}${FIRMWARE_DIR} does not seem to contain Raspberry Pi firmware files."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if [[ ! -f ${FIRMWARE_DIR}boot/bootcode.bin ]]
 then
-	echo -e "${TxtErr}${FIRMWARE_DIR}boot/bootcode.bin is missing."
+  echo -e "${TxtErr}${FIRMWARE_DIR}boot/bootcode.bin is missing."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if [[ ! -f ${FIRMWARE_DIR}boot/fixup.dat ]]
 then
-	echo -e "${TxtErr}${FIRMWARE_DIR}boot/fixup.dat is missing."
+  echo -e "${TxtErr}${FIRMWARE_DIR}boot/fixup.dat is missing."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if [[ ! -f ${FIRMWARE_DIR}boot/start.elf ]]
 then
-	echo -e "${TxtErr}${FIRMWARE_DIR}boot/start.elf is missing."
+  echo -e "${TxtErr}${FIRMWARE_DIR}boot/start.elf is missing."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if [[ ! -d ${FIRMWARE_DIR}opt/vc ]]
 then
-	echo -e "${TxtErr}${FIRMWARE_DIR}opt/vc (Raspberry Pi VideoCore files) missing ."
+  echo -e "${TxtErr}${FIRMWARE_DIR}opt/vc (Raspberry Pi VideoCore files) missing ."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 
 # Change to source directory, determine kernel version that will be build,  
@@ -163,9 +163,9 @@ modules_dir=${build_dir_base}/modules
 image_file=${build_dir}/arch/arm/boot/zImage
 if [[ ! -d ${build_dir_base} ]]
 then
-  	echo -e "${TxtErr}${build_dir_base} does not seem to exist as a directory."
+    echo -e "${TxtErr}${build_dir_base} does not seem to exist as a directory."
   echo -e ${TxtNorm}
-	exit 12
+  exit 12
 fi
 if  [[ ! -x ${image_file} ]]
 then
@@ -187,12 +187,12 @@ stage_lib_dir=${stage_base_dir}/lib
 stage_opt_dir=${stage_base_dir}/opt
 if [[ ! -d ${stage_base_dir} ]]
 then
-	if !(mkdir ${stage_base_dir})
-	then
-		echo -e "${TxtErr}Failed to create transfer staging base directory ${stage_base_dir}."
+  if !(mkdir ${stage_base_dir})
+  then
+    echo -e "${TxtErr}Failed to create transfer staging base directory ${stage_base_dir}."
     echo -e ${TxtNorm}
-		exit 13
-	fi
+    exit 13
+  fi
   if  [[ ! -d ${stage_boot_dir} ]]
   then
     if !(mkdir ${stage_boot_dir})
